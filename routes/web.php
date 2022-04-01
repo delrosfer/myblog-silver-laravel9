@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard'], function() {
         Route::get('{category:slug}/edit', [CategoryController::class, 'edit'])->name('edit');
         Route::put('{category:slug}', [CategoryController::class, 'update'])->name('update');
         Route::delete('{category:slug}/delete', [CategoryController::class, 'destroy'])->name('delete');
+    });
+
+    //Tags
+    Route::group(['prefix' => 'tags', 'as' => 'tags.'], function() {
+
+        Route::get('/', [TagController::class, 'index'])->name('index');
+        Route::get('create', [TagController::class, 'create'])->name('create');
+        Route::post('/', [TagController::class, 'store'])->name('store');
+        Route::get('{tag:slug}/edit', [TagController::class, 'edit'])->name('edit');
+        Route::put('{tag:slug}', [TagController::class, 'update'])->name('update');
+        Route::delete('{tag:slug}/delete', [TagController::class, 'destroy'])->name('delete');
     });
 });
 
